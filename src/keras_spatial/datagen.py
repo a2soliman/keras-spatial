@@ -219,8 +219,9 @@ class SpatialDataGenerator(object):
             for func,args,kwargs in self.preprocess.values():
                 batch[-1] = func(batch[-1], *args, **kwargs)
 
-            batch = np.stack(batch[0])      
-        return np.moveaxis(batch, 0, -1)
+        np_batch = np.stack(batch)
+
+        return np.moveaxis(np_batch, 1, -1)
 
     def flow_from_dataframe(self, dataframe, width=0, height=0, batch_size=0):
         """extracts data from source based on sample extents
